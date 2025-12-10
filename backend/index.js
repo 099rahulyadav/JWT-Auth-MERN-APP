@@ -4,6 +4,7 @@ require('dotenv').config();
 require('./Models/db');
 const cors = require('cors');
 const AuthRouter = require('./Routes/AuthRouter')
+const ProductRouter = require('./Routes/ProductRouter');
 
 const PORT = process.env.PORT || 8081;
 
@@ -16,6 +17,7 @@ app.get('/ping', (req,res)=>{
 })
 
 app.use('/auth', AuthRouter);
+app.use('/products', ProductRouter);
 
 
 app.listen(PORT, ()=>{

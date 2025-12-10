@@ -6,7 +6,7 @@ const signupValidation= (req, res, next)=>{
         username:Joi.string().min(3).max(100).required(),
         email:Joi.string().email().required(),
         password:Joi.string().min(4).max(40).required()
-    });
+    }); 
 
     const {error}= schema.validate(req.body);
     if(error){
@@ -20,8 +20,8 @@ const signupValidation= (req, res, next)=>{
 }
 const loginValidation= (req, res, next)=>{
     const schema=Joi.object({
-        username:Joi.string().min(4).max(50).required(),
-        email:Joi.string().email().required(),
+        username:Joi.string().min(4).max(50),
+        email:Joi.string().email(),
         password:Joi.string().min(4).max(30).required()
     }).xor('username', 'email');    // At least one of userName or email is required ('xor condition')
 
@@ -30,7 +30,8 @@ const loginValidation= (req, res, next)=>{
         return res.status(400)
         .json({message:"Bad Request",
             error: error.details[0].message,  // more readable
-            detailedError: error});
+            detailedError: error
+        });
     }
     next();
 }
